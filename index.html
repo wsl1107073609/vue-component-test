@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>vue component test</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+
+
+
+</head>
+<body>
+	<!-- 不是组件的情况 -->
+	<h3>非组件Demo:</h3>
+	<section class="warp">
+		<div class="searchTpt clearFix">
+			<div class="clearFix">
+				<input type="text" class="keyWord" value="" />
+				<input type="button" value="GO">
+				<span></span>
+			</div>
+			<ul class="list">
+				<li>html + css</li>
+				<li>html5 + css3</li>
+				<li>javaScript</li>
+				<li>angular</li>
+				<li>react</li>
+				<li>vue</li>
+				<li>jquery</li>
+				<li>nodejs</li>
+			</ul>
+
+		</div>
+	</section>
+
+	<!-- 组件开发 -->
+	<h3>组件Demo:</h3>
+	<div id="app">
+		<custom-select style="float:left" :list="city" :behaviour="query"></custom-select>
+		<custom-select style="float:right" :list="frontEnd" :behaviour="search"></custom-select>
+	</div>
+
+	<script type="text/javascript">
+		//父组件: custom-select
+		Vue.component("custom-select", {
+			data: function(){
+				return
+			},
+			props: ['list', 'behaviour'],
+			template: `	<section class="warp">
+							<div class="searchTpt clearFix">
+								<div class="clearFix">
+									<input type="text" class="keyWord" value="" />
+
+									<custom-input :value="behaviour"></custom-input>
+
+									<span></span>
+
+								</div>
+
+								<custom-list :list="list"></custom-list>
+
+							</div>
+						</section>`
+		})
+
+		//子组件：custom-list
+		Vue.component("custom-list",{
+			props: ['list'],
+			template: `<ul class="list">
+							<li v-for="item in list">{{item}}</li>
+						</ul>`
+		})
+
+		//子组件：custom-input
+		Vue.component("custom-input", {
+			props: ['behaviour'],
+			template: `<input type="button" value="behaviour">`
+		})
+
+		new Vue({
+			el: "#app",
+			data: {
+				city: ["北京","上海","深圳","广州"],
+				frontEnd: ["html","css","javascript","ajax"],
+				query: ["查询"],
+				search: ["搜索"]
+			}
+		})
+
+
+	</script>
+
+</body>
+</html>
